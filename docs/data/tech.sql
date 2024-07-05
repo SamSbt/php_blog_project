@@ -1,0 +1,12 @@
+insert into tech (id_tech, label, img_src, is_deleted) values (1, 'HTML', 'https://picsum.photos/id/1/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (2, 'CSS', 'https://picsum.photos/id/2/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (3, 'Bootstrap', 'https://picsum.photos/id/3/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (4, 'JS', 'https://picsum.photos/id/4/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (5, 'React.js', 'https://picsum.photos/id/5/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (6, 'Node.js', 'https://picsum.photos/id/6/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (7, 'Express', 'https://picsum.photos/id/7/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (8, 'PHP', 'https://picsum.photos/id/8/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (9, 'Symfony', 'https://picsum.photos/id/9/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (10, 'Git', 'https://picsum.photos/id/10/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (11, 'VS Code', 'https://picsum.photos/id/11/400/300', false);
+insert into tech (id_tech, label, img_src, is_deleted) values (12, 'WAMP', 'https://picsum.photos/id/12/400/300', false);

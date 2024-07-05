@@ -1,0 +1,10 @@
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (1, 'Goran', false, 1);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (2, 'Bonnibelle', false, 1);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (3, 'Denna', false, 1);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (4, 'Vladamir', false, 1);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (5, 'Byrom', false, 2);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (6, 'Kinsley', false, 2);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (7, 'Jeanelle', false, 2);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (8, 'Brennen', false, 3);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (9, 'Harry', false, 3);
+insert into appuser (id_appuser, pseudo, is_deleted, id_role) values (10, 'Juditha', false, 4);
