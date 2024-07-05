@@ -1,6 +1,4 @@
-<?php
-
-namespace Controllers;
+<?php namespace Controllers;
 
 class Router
 {
@@ -12,5 +10,16 @@ class Router
     if (empty($controllerName)) {
       $controllerName = "Home";
     }
+    $controllerClassName = "Controllers\\".$controllerName."Controller";
+    $ControllerFilePath = lcfirst($controllerClassName).".php";
+    if(!file_exists($ControllerFilePath)) {
+      header('HTTP/1.0 404 Not found');
+      die();
+    }
+
+    include_once $ControllerFilePath;
+    $controllerInstance = new $controllerClassName($routeParts);
+    $controllerInstance->{$controllerInstance->actionName}();
+
   }
 }
