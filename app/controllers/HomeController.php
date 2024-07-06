@@ -1,19 +1,11 @@
-<?php namespace Controllers;
+<?php
 
-class HomeController
+namespace Controllers;
+
+class HomeController extends BaseController
 {
-  public $actionName;
-  public function __construct($routeParts)
+  public function index()
   {
-    $this->actionName = array_shift($routeParts) ?? 'index';
-    if (!method_exists(get_called_class(), $this->actionName)){
-      header('HTTP/1.0 404 Not found');
-      die();
-    }
+    echo "<br />Executing " . get_called_class() . " -> " . __FUNCTION__ . "()";
   }
-
-  public function index() {
-    echo "<br />Executing " .get_called_class() . " -> " . __FUNCTION__ . "()";
-  }
-
 }

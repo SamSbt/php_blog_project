@@ -1,25 +1,16 @@
-<?php namespace Controllers;
+<?php
 
-class ArticlesController
+namespace Controllers;
+
+class ArticlesController extends BaseController
 {
-    public $actionName;
-    private $params;
-    public function __construct($routeParts)
+    public function details()
     {
-        $this->actionName = array_shift($routeParts) ?? 'index';
-        if (!method_exists(get_called_class(), $this->actionName)) {
-            header('HTTP/1.0 404 Not Found');
-            die();
-        }  
-        $this->params = $routeParts; 
-    }
-
-    public function details(){
         $id = (int)$this->params[0];
-        if($id < 1) {
+        if ($id < 1) {
             header('HTTP/1.0 404 Not Found');
             die();
         }
-        echo "<br/>Executing ".get_called_class()." -> ".__FUNCTION__."() with id=".$id;
+        echo "<br/>Executing " . get_called_class() . " -> " . __FUNCTION__ . "() with id=" . $id;
     }
 }
