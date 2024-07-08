@@ -15,7 +15,6 @@ $user = DB_USER;
 $pass = DB_PASSWORD;
 
 // débogage du code suite à des erreurs de frappe
-echo "DSN: $dsn<br>";
 try {
   $db = new PDO(
     $dsn,
@@ -27,15 +26,6 @@ try {
     )
   );
 
-$db = new PDO(
-  $dsn,
-  $user,
-  $pass,
-  array(
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-  )
-);
 $sql = "SELECT * FROM article ORDER BY ? DESC LIMIT 12";
 // protection contre les injections SQL
 $stmt = $db->prepare($sql);
