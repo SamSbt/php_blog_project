@@ -48,7 +48,7 @@ if ($article === false) {
 
 <body>
   <div class="container-lg bg-light">
-    <?php include_once "navbar.php"; ?>
+    <?php include_once "views/partials/navbar.php"; ?>
 
     <main class="mt-5 pt-3 row">
       <div class="col-12">

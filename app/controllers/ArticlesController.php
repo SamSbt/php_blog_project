@@ -12,9 +12,14 @@ class ArticlesController extends BaseController
             header('HTTP/1.0 404 Not Found');
             die();
         }
-        echo "<br/>Executing " . get_called_class() . " -> " . __FUNCTION__ . "() with id=" . $id ."<br />";
+        // echo "<br/>Executing " . get_called_class() . " -> " . __FUNCTION__ . "() with id=" . $id ."<br />";
         $articleRepository = new ArticleRepository();
         $article = $articleRepository->getOneById($id);
-        var_dump($article); 
+        // var_dump($article); 
+        $attributes = [
+            'articles' => $article,
+            'pageTitle' => "MyBlog - Article : ". $article->title,
+        ];
+        $this->render($attributes);
     }
 }
