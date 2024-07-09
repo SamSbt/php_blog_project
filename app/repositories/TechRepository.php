@@ -17,7 +17,11 @@ class TechRepository extends BaseRepository
   public function getOneById($id)
   {
     $queryResponse = $this->preparedQuery("SELECT * FROM tech WHERE id_tech = ?", [$id]);
-    $tech = new Tech($queryResponse->statement->fetch(PDO::FETCH_ASSOC));
-    return $tech;
+    $data = $queryResponse->statement->fetch(PDO::FETCH_ASSOC);
+    if ($data) {
+      return new Tech($data);
+    } else {
+      return null; // ou false
+    }
   }
 }

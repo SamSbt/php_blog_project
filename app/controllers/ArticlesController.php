@@ -3,13 +3,15 @@
 namespace Controllers;
 use Repositories\ArticleRepository;
 
+include_once '../utils/functions.php';
+
 class ArticlesController extends BaseController
 {
     public function details()
     {
-        // Vérifier si un ID est fourni dans les paramètres
+        // Vérifier si ID non défini / si n'est pas un nombre / si inférieur à 1 : renvoi sur func 404
         if (!isset($this->params[0]) || !is_numeric($this->params[0]) || (int)$this->params[0] < 1) {
-            $this->redirect404();
+            redirect404();
         }
 
         $id = (int)$this->params[0];
@@ -23,7 +25,7 @@ class ArticlesController extends BaseController
 
         // Si l'article n'existe pas, rediriger vers la page 404
         if (!$article) {
-            $this->redirect404();
+            redirect404();
         }
 
         $attributes = [
@@ -33,10 +35,4 @@ class ArticlesController extends BaseController
         $this->render($attributes);
     }
 
-    private function redirect404()
-    {
-        header('HTTP/1.0 404 Not Found');
-        include_once ('views/pages/error.404.php');
-        die();
-    }
 }

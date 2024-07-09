@@ -17,7 +17,11 @@ class SerieRepository extends BaseRepository
   public function getOneById($id)
   {
     $queryResponse = $this->preparedQuery("SELECT * FROM serie WHERE id_serie = ?", [$id]);
-    $serie = new Serie($queryResponse->statement->fetch(PDO::FETCH_ASSOC));
-    return $serie;
+    $data = $queryResponse->statement->fetch(PDO::FETCH_ASSOC);
+    if ($data) {
+      return new Serie($data);
+    } else {
+      return null; // ou false
+    }
   }
 }
