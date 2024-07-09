@@ -15,18 +15,8 @@
     <?php include_once "views/partials/navbar.php"; ?>
     <main class="mt-5 pt-3 row">
 
-      <?php foreach ($articles as $article) { ?>
-        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch justify-content-center">
-          <div class="card mb-3" style="width: 18rem;">
-            <img src="<?= $article->img_src ?>" class="card-img-top" alt="<?= $article->title ?>">
-            <div class="card-body text-center">
-              <h5 class="card-title"><?= $article->title ?></h5>
-              <p class="card-text text-justify"><?= $article->summary ?></p>
-              <a href="articles/details/<?= $article->id_article ?>" class="btn btn-primary">Lire</a>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
+      <h1>404 - Page non trouvée</h1>
+      <p>Désolé, la page que vous recherchez n'existe pas.</p>
 
     </main>
   </div>

@@ -20,7 +20,11 @@ class ArticleRepository extends BaseRepository
 
   public function getOneById($id){
     $queryResponse = $this->preparedQuery("SELECT * FROM article WHERE id_article = ?", [$id]);
-    $article = new Article($queryResponse->statement->fetch(PDO::FETCH_ASSOC));
-    return $article;
+    $data = $queryResponse->statement->fetch(PDO::FETCH_ASSOC);
+    if ($data) {
+      return new Article($data);
+    } else {
+      return null; // ou false
+    }
   }
 }

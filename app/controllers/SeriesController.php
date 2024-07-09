@@ -9,7 +9,15 @@ class SeriesController extends BaseController
   public function index()
   {
     // echo "<br />Executing " . get_called_class() . " -> " . __FUNCTION__ . "()";
+    $serieRepository = new SerieRepository();
+    $serie = $serieRepository;
+    $attributes = [
+      'serie' => $serie,
+      'pageTitle' => "MyBlog - Séries",
+    ];
+    $this->render($attributes);
   }
+
 
   public function articles()
   {
@@ -22,5 +30,10 @@ class SeriesController extends BaseController
     $serieRepository = new SerieRepository();
     $serie = $serieRepository->getOneById($id);
     // var_dump($serie);
+    $attributes = [
+      'serie' => $serie,
+      'pageTitle' => "MyBlog - Séries : " . $serie->title,
+    ];
+    $this->render($attributes);
   }
 }

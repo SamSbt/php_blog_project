@@ -9,6 +9,13 @@ class TechsController extends BaseController
   public function index()
   {
     // echo "<br />Executing " . get_called_class() . " -> " . __FUNCTION__ . "()";
+    $techRepository = new TechRepository();
+    $tech = $techRepository;
+    $attributes = [
+      'tech' => $tech,
+      'pageTitle' => "MyBlog - Techs",
+    ];
+    $this->render($attributes);
   }
 
   public function articles()
