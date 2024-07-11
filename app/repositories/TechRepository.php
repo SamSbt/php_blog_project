@@ -6,7 +6,7 @@ use Entities\Tech;
 use PDO;
 
 class TechRepository extends BaseRepository
-{}
+{
   // public function getAll()
   // {
   //   $queryResponse = $this->preparedQuery("SELECT * FROM tech");
@@ -24,4 +24,4 @@ class TechRepository extends BaseRepository
 //       return null; // ou false
 //     }
 //   }
-// }
+}

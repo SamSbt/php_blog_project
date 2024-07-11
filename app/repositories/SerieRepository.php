@@ -6,7 +6,7 @@ use Entities\Serie;
 use PDO;
 
 class SerieRepository extends BaseRepository
-{}
+{
   // public function getAll()
   // {
   //   $queryResponse = $this->preparedQuery("SELECT * FROM serie");
@@ -24,4 +24,4 @@ class SerieRepository extends BaseRepository
 //       return null; // ou false
 //     }
 //   }
-// }
+}
