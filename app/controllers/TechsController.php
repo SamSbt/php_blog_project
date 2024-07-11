@@ -2,13 +2,13 @@
 
 namespace Controllers;
 
+use Core\HttpResponse;
 use Repositories\TechRepository;
 
 class TechsController extends BaseController
 {
   public function index()
   {
-    // echo "<br />Executing " . get_called_class() . " -> " . __FUNCTION__ . "()";
     $techRepository = new TechRepository();
     $tech = $techRepository;
     $attributes = [
@@ -20,14 +20,25 @@ class TechsController extends BaseController
 
   public function articles()
   {
-    $id = (int)$this->params[0];
-    if ($id < 1) {
-      header('HTTP/1.0 404 Not Found');
-      die();
+    // Vérifier si ID non défini / si n'est pas un nombre / si inférieur à 1 : renvoi sur func 404
+    if (!isset($this->params[0]) || !is_numeric($this->params[0]) || (int)$this->params[0] < 1) {
+      HttpResponse::SendNotFound();
     }
-    // echo "<br/>Executing " . get_called_class() . " -> " . __FUNCTION__ . "() with id=" . $id . "<br />";
+
+    $id = (int)$this->params[0];
+
+    // Récupérer l'article par ID
     $techRepository = new TechRepository();
     $tech = $techRepository->getOneById($id);
     // var_dump($tech);
+
+    // Si l'article n'existe pas, rediriger vers la page 404
+    HttpResponse::SendNotFound($tech == null);
+
+    $attributes = [
+      'tech' => $tech,
+      'pageTitle' => "MyBlog - Techs : " . $tech->title,
+    ];
+    $this->render($attributes);
   }
 }

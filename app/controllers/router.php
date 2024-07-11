@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Core\HttpResponse;
+
 class Router
 {
   private $controllerInstance;
@@ -15,12 +17,8 @@ class Router
     }
     $controllerClassName = "Controllers\\" . $controllerName . "Controller";
     $ControllerFilePath = lcfirst($controllerClassName) . ".php";
-    if (!file_exists($ControllerFilePath)) {
-      header('HTTP/1.0 404 Not found');
-      die();
-    }
-    
 
+    HttpResponse::SendNotFound(!file_exists($ControllerFilePath));
     // suppression car func autoload mnt
     // include_once $ControllerFilePath;
     $this->controllerInstance = new $controllerClassName($routeParts);
