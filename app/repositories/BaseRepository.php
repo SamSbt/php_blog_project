@@ -35,37 +35,42 @@ class BaseRepository
     }
     return self::$connection;
   }
-  protected function preparedQuery($sql, $params = []){
+  protected function preparedQuery($sql, $params = [])
+  {
     $statement = $this->connect()->prepare($sql);
     $result = $statement->execute($params);
     return (object)['result' => $result, 'statement' => $statement];
   }
   // récupérer valeurs table/entities ici
-  private function getBaseClassName(){
+  private function getBaseClassName()
+  {
     $baseClassName = str_replace("Repositories\\", "", get_called_class());
-    return str_replace("Repository","", $baseClassName);
+    return str_replace("Repository", "", $baseClassName);
   }
-  private function getTableName(){
+  private function getTableName()
+  {
     return lcfirst($this->getBaseClassName());
   }
-  private function getEntityClassName(){
+  private function getEntityClassName()
+  {
     return "Entities\\" . $this->getBaseClassName();
   }
-  public function getAll(){
+  public function getAll()
+  {
     $queryResponse = $this->preparedQuery("SELECT * FROM " . $this->getTableName());
     $entities = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS, $this->getEntityClassName());
     return $entities;
   }
-  public function getOneById($id){
-$tableName = $this->getTableName();
-$entityClassName = $this->getEntityClassName();	
-$queryResponse = $this->preparedQuery("SELECT * FROM $tableName WHERE id_$tableName = ?", [$id]);
+  public function getOneById($id)
+  {
+    $tableName = $this->getTableName();
+    $entityClassName = $this->getEntityClassName();
+    $queryResponse = $this->preparedQuery("SELECT * FROM $tableName WHERE id_$tableName = ?", [$id]);
     $assocArray = $queryResponse->statement->fetch(PDO::FETCH_ASSOC);
     if (!$assocArray) {
       return null;
-    } 
+    }
     $entity = new $entityClassName($assocArray);
     return $entity;
   }
 }
-

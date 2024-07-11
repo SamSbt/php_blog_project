@@ -11,7 +11,7 @@ class BaseController
     public function __construct($routeParts)
     {
         $this->actionName = array_shift($routeParts) ?? 'index';
-
+        
         $actionNotExists = !method_exists(get_called_class(), $this->actionName);
         HttpResponse::SendNotFound($actionNotExists);
         $this->params = $routeParts;
