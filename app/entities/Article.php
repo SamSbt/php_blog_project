@@ -4,7 +4,7 @@ namespace Entities;
 
 class Article extends BaseEntity
 {
-  public int $id_article;
+  // public int $id_article;
   public ?string $title;
   public ?string $summary;
   public ?string $img_src;

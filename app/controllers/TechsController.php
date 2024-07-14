@@ -10,7 +10,7 @@ class TechsController extends BaseController
   public function index()
   {
     $techRepository = new TechRepository();
-    $tech = $techRepository;
+    $tech = $techRepository->getAll();
     $attributes = [
       'tech' => $tech,
       'pageTitle' => "MyBlog - Techs",
@@ -31,12 +31,14 @@ class TechsController extends BaseController
     $techRepository = new TechRepository();
     $tech = $techRepository->getOneById($id);
     // var_dump($tech);
+    $articles = $techRepository->getArticles($id);
 
     // Si l'article n'existe pas, rediriger vers la page 404
     HttpResponse::SendNotFound($tech == null);
 
     $attributes = [
       'tech' => $tech,
+      'articles' => $articles,
       'pageTitle' => "MyBlog - Techs : " . $tech->title,
     ];
     $this->render($attributes);

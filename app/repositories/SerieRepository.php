@@ -7,21 +7,11 @@ use PDO;
 
 class SerieRepository extends BaseRepository
 {
-  // public function getAll()
-  // {
-  //   $queryResponse = $this->preparedQuery("SELECT * FROM serie");
-  //   $series = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS, "Entities\Serie");
-  //   return $series;
-  // }
-
-//   public function getOneById($id)
-//   {
-//     $queryResponse = $this->preparedQuery("SELECT * FROM serie WHERE id_serie = ?", [$id]);
-//     $data = $queryResponse->statement->fetch(PDO::FETCH_ASSOC);
-//     if ($data) {
-//       return new Serie($data);
-//     } else {
-//       return null; // ou false
-//     }
-//   }
+  public function getArticles($id)
+  {
+    $sql = "SELECT * FROM article WHERE id_serie = $id";
+    $queryResponse = $this->preparedQuery($sql);
+    $articles = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entities\Article");
+    return $articles;
+  }
 }

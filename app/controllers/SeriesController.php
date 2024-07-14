@@ -9,11 +9,10 @@ class SeriesController extends BaseController
 {
   public function index()
   {
-
     $serieRepository = new SerieRepository();
-    $serie = $serieRepository;
+    $series = $serieRepository->getAll();
     $attributes = [
-      'serie' => $serie,
+      'serie' => $series,
       'pageTitle' => "MyBlog - Séries",
     ];
     $this->render($attributes);
@@ -32,12 +31,14 @@ class SeriesController extends BaseController
     $serieRepository = new SerieRepository();
     $serie = $serieRepository->getOneById($id);
     // var_dump($serie);
+    $articles = $serieRepository->getArticles($id);
 
     // Si la série n'existe pas, rediriger vers la page 404
     HttpResponse::SendNotFound($serie == null);
 
     $attributes = [
       'serie' => $serie,
+      'articles' => $articles,
       'pageTitle' => "MyBlog - Séries : " . $serie->title,
     ];
     $this->render($attributes);

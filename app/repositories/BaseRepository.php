@@ -58,7 +58,7 @@ class BaseRepository
   public function getAll()
   {
     $queryResponse = $this->preparedQuery("SELECT * FROM " . $this->getTableName());
-    $entities = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS, $this->getEntityClassName());
+    $entities = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $this->getEntityClassName());
     return $entities;
   }
   public function getOneById($id)
@@ -74,3 +74,5 @@ class BaseRepository
     return $entity;
   }
 }
+
+// FETCH_PROPS_LATE permet que constructeur soit exécuté avant affectation des valeurs en DB
