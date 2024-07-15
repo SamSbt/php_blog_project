@@ -12,7 +12,7 @@
   <div class="container-lg bg-light">
     <?php include_once "views/partials/navbar.php"; ?>
     <main class="mt-5 pt-3 row">
-      <h2>Articles de la tech "<?= $tech->label ?>"</h2>
+      <h2 class="mb-3">Articles de la tech "<?= $tech->label ?>"</h2>
       <?php foreach ($articles as $article) { ?>
         <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch justify-content-center">
           <div class="card mb-3" style="width: 18rem;">

@@ -24,7 +24,7 @@ class TechsController extends BaseController
 
     $attributes = [
       'techs' => $techsArray,
-      'pageTitle' => "MyBlog - Techs",
+      'pageTitle' => "MyBlog - Les Techs",
     ];
     $this->render($attributes);
   }
@@ -50,7 +50,7 @@ class TechsController extends BaseController
     $attributes = [
       'tech' => $tech,
       'articles' => $articles,
-      'pageTitle' => "MyBlog - Techs : " . $tech->title,
+      'pageTitle' => "MyBlog - Tech : " . $tech->title,
     ];
     $this->render($attributes);
   }
