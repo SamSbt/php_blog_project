@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-use Entities\Tech;
+
 use PDO;
 
 class TechRepository extends BaseRepository

@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-use Entities\Serie;
+
 use PDO;
 
 class SerieRepository extends BaseRepository

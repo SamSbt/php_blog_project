@@ -24,7 +24,7 @@ class SeriesController extends BaseController
 
     $attributes = [
       'series' => $seriesArray,
-      'pageTitle' => "MyBlog - Séries",
+      'pageTitle' => "MyBlog - Les Séries",
     ];
     $this->render($attributes);
   }
@@ -50,7 +50,7 @@ class SeriesController extends BaseController
     $attributes = [
       'serie' => $serie,
       'articles' => $articles,
-      'pageTitle' => "MyBlog - Séries : " . $serie->title,
+      'pageTitle' => "MyBlog - Série : " . $serie->title,
     ];
     $this->render($attributes);
   }

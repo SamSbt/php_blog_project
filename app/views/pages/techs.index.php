@@ -19,7 +19,7 @@
           <img src="<?= $tech["img_src"] ?>" class="card-img-top" alt="<?= $tech["label"] ?>">
           <div class="card-body text-center">
             <h5 class="card-title"><?= $tech["label"] ?></h5>
-            <a href="series/articles/<?= $tech["id_tech"] ?>" class="btn btn-primary">Voir</a>
+            <a href="techs/articles/<?= $tech["id_tech"] ?>" class="btn btn-primary">Voir</a>
           </div>
         </div>
   </div>

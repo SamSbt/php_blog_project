@@ -20,7 +20,7 @@
             <div class="card-body text-center">
               <h5 class="card-title"><?= $article->title ?></h5>
               <p class="card-text" style="text-align: justify;"><?= $article->summary ?></p>
-              <a href="series/articles/<?= $article->id_article ?>" class="btn btn-primary">Voir</a>
+              <a href="../../articles/details/<?= $article->id_article ?>" class="btn btn-primary">Voir</a>
             </div>
           </div>
         </div>
