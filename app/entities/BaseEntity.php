@@ -2,6 +2,9 @@
 
 namespace Entities;
 
+//attribut prédéfini
+#[\AllowDynamicProperties]
+
 class BaseEntity
 {
   function __construct($fields = [])

@@ -10,9 +10,20 @@ class TechsController extends BaseController
   public function index()
   {
     $techRepository = new TechRepository();
-    $tech = $techRepository->getAll();
+    $techs = $techRepository->getAll();
+
+    $techsArray = [];
+
+    foreach ($techs as $tech) {
+      $techsArray[] = [
+        "id_tech" => $tech->id_tech,
+        "img_src" => $tech->img_src,
+        "label" => $tech->label,
+      ];
+    }
+
     $attributes = [
-      'tech' => $tech,
+      'techs' => $techsArray,
       'pageTitle' => "MyBlog - Techs",
     ];
     $this->render($attributes);

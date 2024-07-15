@@ -11,8 +11,19 @@ class SeriesController extends BaseController
   {
     $serieRepository = new SerieRepository();
     $series = $serieRepository->getAll();
+    $seriesArray = [];
+
+    foreach ($series as $serie) {
+      $seriesArray[] = [
+        "id_serie" => $serie->id_serie,
+        "img_src" => $serie->img_src,
+        "title" => $serie->title,
+        "summary" => $serie->summary,
+      ];
+    }
+
     $attributes = [
-      'serie' => $series,
+      'series' => $seriesArray,
       'pageTitle' => "MyBlog - Séries",
     ];
     $this->render($attributes);
