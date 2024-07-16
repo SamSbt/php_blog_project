@@ -1,5 +1,6 @@
 <?php
 
+use Core\HttpReqAttr;
 use Core\HttpRequest;
 use Core\HttpResponse;
 
@@ -14,9 +15,12 @@ spl_autoload_register("autoload");
 
 // HttpResponse::SendOK("ok");
 
-$httpRequest = new HttpRequest();
+// $httpRequest = new HttpRequest();
 
-// echo "Method: " . $request['method'] . "<br>";
-// echo "Route: " . implode('/', $request['route']) . "<br>";
-// echo "Params: " . json_encode($request['params']) . "<br>";
-// echo "Body: " . json_encode($request['body']) . "<br>";+
+$instance1 = HttpRequest::get();
+$instance2 = HttpRequest::get(HttpReqAttr::INSTANCE);
+$method = HttpRequest::get(HttpReqAttr::METHOD);
+$route = HttpRequest::get(HttpReqAttr::ROUTE);
+$params = HttpRequest::get(HttpReqAttr::PARAMS);
+$body = HttpRequest::get(HttpReqAttr::BODY);
+$bp = true;

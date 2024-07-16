@@ -11,76 +11,35 @@ class HttpRequest
   private $params = [];
   private $body = [];
 
-  public function __construct()
+  private function __construct()
   {
     $this->method = $_SERVER['REQUEST_METHOD'];
-    // $this->parseRoute();
-    // $this->parseParams();
-    // $this->parseBody();
-var_dump($this);
+    $parsed_url = parse_url(filter_var(trim($_SERVER['REQUEST_URI'], "/")));
+    $this->route = explode('/', $parsed_url['path']);
+    parse_str($parsed_url['query'] ?? "", $this->params);
+    $this->body = filter_var_array(json_decode(file_get_contents('php://input'), true) ?? [], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  // var_dump($this);
   }
 
-  public static function getInstance()
+  public static function get(HttpReqAttr $option = HttpReqAttr::INSTANCE) : string | array | HttpRequest
   {
-    if (self::$instance === null) {
-      self::$instance = new self();
+    if (is_null(self::$instance)) {
+      self::$instance = new HttpRequest();
     }
-    // echo "coucou";
-    return self::$instance;
+    if($option == HttpReqAttr::INSTANCE){
+      return self::$instance;
+    }
+    return self::$instance->{$option->value};
   }
 
-//   private function parseRoute()
-//   {
-//     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-//     $path = trim($path, '/');
-//     $this->route = explode('/', $path);
-//   }
 
-//   private function parseParams()
-//   {
-//     $this->params = $_GET;
-//   }
+}
 
-//   private function parseBody()
-//   {
-//     // Vérifie si la requête est un POST ou PUT avec un contenu JSON
-//     if (in_array($this->method, ['POST', 'PUT', 'DELETE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
-//       $json = file_get_contents('php://input');
-//       $this->body = json_decode($json, true);
-//     } else {
-//       $this->body = $_POST;
-//     }
-//   }
-
-//   public function getMethod()
-//   {
-//     return $this->method;
-//   }
-
-//   public function getRoute()
-//   {
-//     return $this->route;
-//   }
-
-//   public function getParams()
-//   {
-//     return $this->params;
-//   }
-
-//   public function getBody()
-//   {
-//     return $this->body;
-//   }
-
-  public static function get()
-  {
-    self::getInstance();
-    echo "get";
-    return [
-      // 'method' => $instance->getMethod(),
-      // 'route' => $instance->getRoute(),
-      // 'params' => $instance->getParams(),
-      // 'body' => $instance->getBody()
-    ];
-  }
+enum HttpReqAttr: string
+{
+case INSTANCE = "instance";
+case METHOD = "method";
+case ROUTE = "route";
+case PARAMS = "params";
+case BODY = "body";
 }
