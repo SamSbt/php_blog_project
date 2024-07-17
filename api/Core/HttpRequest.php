@@ -31,9 +31,8 @@ class HttpRequest
     }
     return self::$instance->{$option->value};
   }
-
-
 }
+
 // enum permet d'éviter de créer 5 méthodes get
 enum HttpReqAttr: string
 {
