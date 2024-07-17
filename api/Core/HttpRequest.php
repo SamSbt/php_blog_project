@@ -34,7 +34,7 @@ class HttpRequest
 
 
 }
-
+// enum permet d'éviter de créer 5 méthodes get
 enum HttpReqAttr: string
 {
 case INSTANCE = "instance";

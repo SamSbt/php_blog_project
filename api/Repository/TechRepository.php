@@ -1,6 +1,6 @@
 <?php
 
-namespace Repositories;
+namespace Repository;
 
 use PDO;
 

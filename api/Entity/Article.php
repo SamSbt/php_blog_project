@@ -1,6 +1,6 @@
 <?php
 
-namespace Entities;
+namespace Entity;
 
 class Article extends BaseEntity
 {
