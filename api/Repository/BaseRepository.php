@@ -2,13 +2,16 @@
 
 namespace Repository;
 
+use Core\HttpReqAttr;
+use Core\HttpRequest;
+use Entity\BaseEntity;
 use PDO;
 use PDOException;
 
 class BaseRepository
 {
   private static $connection = null;
-  private function connect()
+  private function connect() : PDO
   {
     if (self::$connection == null) {
       include_once "./configs/db.config.php";
@@ -35,33 +38,33 @@ class BaseRepository
     }
     return self::$connection;
   }
-  protected function preparedQuery($sql, $params = [])
+  protected function preparedQuery($sql, $params = []) : object
   {
     $statement = $this->connect()->prepare($sql);
     $result = $statement->execute($params);
     return (object)['result' => $result, 'statement' => $statement];
   }
   // récupérer valeurs table/entities ici
-  private function getBaseClassName()
+  private function getBaseClassName() : string
   {
-    $baseClassName = str_replace("Repositories\\", "", get_called_class());
-    return str_replace("Repository", "", $baseClassName);
+    $baseClassName = str_replace("Repository", "", get_called_class());
+    return str_replace("\\", "", $baseClassName);
   }
-  private function getTableName()
+  private function getTableName() : string
   {
     return lcfirst($this->getBaseClassName());
   }
-  private function getEntityClassName()
+  private function getEntityClassName() : string
   {
-    return "Entities\\" . $this->getBaseClassName();
+    return "Entity\\" . $this->getBaseClassName();
   }
-  public function getAll()
+  public function getAll() : array
   {
     $queryResponse = $this->preparedQuery("SELECT * FROM " . $this->getTableName());
     $entities = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $this->getEntityClassName());
     return $entities;
   }
-  public function getOneById($id)
+  public function getOneById($id) : BaseEntity | null
   {
     $tableName = $this->getTableName();
     $entityClassName = $this->getEntityClassName();
@@ -72,6 +75,28 @@ class BaseRepository
     }
     $entity = new $entityClassName($assocArray);
     return $entity;
+  }
+  public function insert(): BaseEntity | false
+  {
+    $tableName = $this->getTableName();
+    $requestBody = HttpRequest::get(HttpReqAttr::BODY);
+    $entityClassName = $this->getEntityClassName();
+    $entity = new $entityClassName($requestBody);
+    $entity->{"id_$tableName"} = null;
+    $entityArray = get_object_vars($entity);
+    $columns = implode(',', array_keys($entityArray));
+    $values = implode(',', array_map(function () {
+      return "?";
+    }, $entityArray));
+    $params = array_values($entityArray);
+    $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
+    $queryResponse = $this->preparedQuery($sql, $params);
+    if ($queryResponse->result && $queryResponse->statement->rowCount() == 1) {
+      $lastInsertId = self::$connection->lastInsertId();
+      $entity = $this->getOneById($lastInsertId);
+      return $entity;
+    }
+    return false;
   }
 }
 

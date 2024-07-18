@@ -15,9 +15,9 @@ class BaseController
     HttpResponse::SendNotFound($methodNotExists);
     $this->id = $id;
   }
-  public function execute(): void
+  public function execute(): string
   {
     $result = $this->{$this->method}();
-    var_dump($result);
+    return json_encode($result);
   }
 }
