@@ -98,6 +98,28 @@ class BaseRepository
     }
     return false;
   }
+  public function update(int $id): BaseEntity | false
+  {
+    $tableName = $this->getTableName();
+    $requestBody = HttpRequest::get(HttpReqAttr::BODY);
+    $entityClassName = $this->getEntityClassName();
+    $entity = new $entityClassName($requestBody);
+    $where = "id_$tableName = ?";
+    $entityArray = get_object_vars($entity);
+    unset($entityArray["id_$tableName"]);
+    $set = implode(',', array_map(function ($item) {
+      return $item . "=?";
+    }, array_keys($entityArray)));
+    $params = array_values($entityArray);
+    array_push($params, $id);
+    $sql = "UPDATE $tableName SET $set WHERE $where";
+    $resp = $this->preparedQuery($sql, $params);
+    if ($resp->result && $resp->statement->rowCount() <= 1) {
+      $entity = $this->getOneById($id);
+      return $entity;
+    }
+    return false;
+  }
 }
 
 // FETCH_PROPS_LATE permet que constructeur soit exécuté avant affectation des valeurs en DB
