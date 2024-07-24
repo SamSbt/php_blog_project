@@ -8,7 +8,7 @@ class HttpResponse
   {
     if ($condition) {
       header('HTTP/1.1 404 Not Found');
-      include_once __DIR__ . '/../views/pages/error.404.php';
+      // include_once __DIR__ . '/../views/pages/error.404.php';
       die();
     }
   }
