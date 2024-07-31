@@ -11,7 +11,7 @@ use PDOException;
 class BaseRepository
 {
   private static $connection = null;
-  private function connect() : PDO
+  private function connect(): PDO
   {
     if (self::$connection == null) {
       include_once "./configs/db.config.php";
@@ -38,33 +38,44 @@ class BaseRepository
     }
     return self::$connection;
   }
-  protected function preparedQuery($sql, $params = []) : object
+  protected function preparedQuery($sql, $params = []): object
   {
     $statement = $this->connect()->prepare($sql);
     $result = $statement->execute($params);
     return (object)['result' => $result, 'statement' => $statement];
   }
   // récupérer valeurs table/entities ici
-  private function getBaseClassName() : string
+  private function getBaseClassName(): string
   {
     $baseClassName = str_replace("Repository", "", get_called_class());
     return str_replace("\\", "", $baseClassName);
   }
-  private function getTableName() : string
+  private function getTableName(): string
   {
     return lcfirst($this->getBaseClassName());
   }
-  private function getEntityClassName() : string
+  private function getEntityClassName(): string
   {
     return "Entity\\" . $this->getBaseClassName();
   }
-  public function getAll() : array
+  public function getAll(array $params): array
   {
-    $queryResponse = $this->preparedQuery("SELECT * FROM " . $this->getTableName());
+    $sql = "SELECT * FROM " . $this->getTableName();
+    if (isset($params['orderby'])) {
+      $sql .= " ORDER BY " . $params['orderby'];
+      if (isset($params['sort'])) {
+        $sql .= " " . $params['sort'];
+      }
+      if (isset($params['limit'])) {
+        $sql .= " LIMIT " . $params['limit'];
+      }
+    }
+    $queryResponse = $this->preparedQuery($sql);
     $entities = $queryResponse->statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $this->getEntityClassName());
     return $entities;
   }
-  public function getOneById($id) : BaseEntity | null
+  // FETCH_PROPS_LATE permet que constructeur soit exécuté avant affectation des valeurs en DB
+  public function getOneById(int $id): BaseEntity | null
   {
     $tableName = $this->getTableName();
     $entityClassName = $this->getEntityClassName();
@@ -121,5 +132,3 @@ class BaseRepository
     return false;
   }
 }
-
-// FETCH_PROPS_LATE permet que constructeur soit exécuté avant affectation des valeurs en DB

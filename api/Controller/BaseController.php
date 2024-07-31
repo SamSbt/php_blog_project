@@ -38,7 +38,8 @@ class BaseController
     $repositoryClassName = $this->getRepositoryClassName();
     $repository = new $repositoryClassName();
     if ($this->id <= 0) {
-      $entities = $repository->getAll();
+      $params = HttpRequest::get(HttpReqAttr::PARAMS);
+      $entities = $repository->getAll($params);
       return $entities;
     }
     $entity = $repository->getOneById($this->id);
